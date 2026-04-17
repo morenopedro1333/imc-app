@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Health Track IMC</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+font-family: 'Quicksand', sans-serif;
+margin:0;
+background:#ffe4ec;
+}
+
+/* FONDO SALUDABLE */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://cdn-icons-png.flaticon.com/512/135/135620.png'),
+           url('https://cdn-icons-png.flaticon.com/512/415/415733.png');
+background-size:80px;
+opacity:0.08;
+z-index:-1;
+}
+
+/* CONTENEDOR */
+.container{
+max-width:420px;
+margin:20px auto;
+padding:20px;
+background:white;
+border-radius:25px;
+box-shadow:0px 0px 25px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+/* BOTÓN CAMBIO */
+.theme{
+position:fixed;
+top:10px;
+right:10px;
+background:#64b5f6;
+color:white;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* INPUTS */
+input{
+width:90%;
+padding:12px;
+margin:8px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+/* BOTÓN */
+button{
+width:90%;
+padding:12px;
+margin:10px;
+background:#64b5f6;
+color:white;
+border:none;
+border-radius:12px;
+}
+
+/* RESULTADO */
+#resultado{
+margin-top:10px;
+font-weight:bold;
+font-size:18px;
+animation: aparecer 0.6s;
+}
+
+/* ANIMACIÓN */
+@keyframes aparecer{
+from{opacity:0; transform:scale(0.9);}
+to{opacity:1; transform:scale(1);}
+}
+
+/* TARJETAS */
+.card{
+background:#f0f8ff;
+padding:12px;
+border-radius:15px;
+margin-top:10px;
+text-align:left;
+}
+
+/* IMÁGENES */
+.img{
+width:70px;
+margin:5px;
+}
+
+/* BARRA IMC */
+.barra{
+height:20px;
+background:#ddd;
+border-radius:10px;
+margin-top:10px;
+overflow:hidden;
+}
+
+.progreso{
+height:100%;
+width:0%;
+transition:1s;
+}
+
+/* TABLA */
+.tabla{
+margin-top:15px;
+border-radius:15px;
+overflow:hidden;
+}
+
+.fila{
+display:flex;
+justify-content:space-between;
+padding:10px;
+color:white;
+}
+
+.bajo{background:#64b5f6;}
+.normal{background:#81c784;}
+.sobre{background:#ffb74d;}
+.obeso{background:#e57373;}
+</style>
+</head>
+
+<body>
+
+<div class="theme" onclick="cambiarFondo()">🎨 Fondo</div>
+
+<div class="container">
+
+<h2>💙 Health Track IMC 💙</h2>
+
+<input id="nombre" placeholder="Nombre">
+<input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
+<input id="altura" type="number" step="0.01" placeholder="Altura (ej: 1.70)">
+
+<button onclick="calcular()">Calcular IMC</button>
+
+<div id="resultado"></div>
+
+<!-- BARRA -->
+<div class="barra">
+<div id="barraIMC" class="progreso"></div>
+</div>
+
+<div id="recomendaciones" class="card"></div>
+
+<!-- TABLA -->
+<div class="tabla">
+<div class="fila bajo"><span>< 18.5</span><span>Bajo peso</span></div>
+<div class="fila normal"><span>18.5 - 24.9</span><span>Normal</span></div>
+<div class="fila sobre"><span>25 - 29.9</span><span>Sobrepeso</span></div>
+<div class="fila obeso"><span>> 30</span><span>Obesidad</span></div>
+</div>
+
+</div>
+
+<!-- SONIDO -->
+<audio id="sonido" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+
+<script>
+
+function cambiarFondo(){
+let colores = ["#ffe4ec","#e3f2fd","#e8f5e9","#fff3e0"];
+document.body.style.background = colores[Math.floor(Math.random()*colores.length)];
+}
+
+function calcular(){
+
+document.getElementById("sonido").play();
+
+let nombre = document.getElementById("nombre").value;
+let peso = parseFloat(document.getElementById("peso").value);
+let altura = parseFloat(document.getElementById("altura").value);
+
+if(!nombre || isNaN(peso) || isNaN(altura)){
+document.getElementById("resultado").innerHTML="⚠️ Completa bien los datos";
+return;
+}
+
+let imc = (peso / (altura * altura)).toFixed(2);
+
+let estado="";
+let recomendaciones="";
+let color="";
+let ancho = imc * 2;
+
+/* CONDICIONES */
+if(imc < 18.5){
+estado="Bajo peso";
+color="#64b5f6";
+recomendaciones=`
+<h3>🍎 Alimentación</h3>
+<p>Plátano, palta, leche, frutos secos</p>
+<h3>🏋️ Ejercicios</h3>
+<p>Sentadillas, pesas, flexiones</p>
+`;
+}
+else if(imc < 25){
+estado="Normal";
+color="#81c784";
+recomendaciones=`
+<h3>🥗 Alimentación</h3>
+<p>Frutas, verduras, proteínas</p>
+<h3>🏃 Ejercicios</h3>
+<p>Correr, bicicleta, deportes</p>
+`;
+}
+else if(imc < 30){
+estado="Sobrepeso";
+color="#ffb74d";
+recomendaciones=`
+<h3>🥦 Alimentación</h3>
+<p>Verduras, frutas, menos azúcar</p>
+<h3>🚶 Ejercicios</h3>
+<p>Caminar, trotar, bicicleta</p>
+`;
+}
+else{
+estado="Obesidad";
+color="#e57373";
+recomendaciones=`
+<h3>🥗 Alimentación</h3>
+<p>Dieta saludable controlada</p>
+<h3>🏃 Ejercicios</h3>
+<p>Ejercicio progresivo diario</p>
+`;
+}
+
+document.getElementById("resultado").innerHTML=
+`${nombre}, tu IMC es ${imc} (${estado}) 💪✨`;
+
+document.getElementById("recomendaciones").innerHTML=
+recomendaciones + `<p><b>🌟 Nunca es tarde para mejorar tu salud. ¡Tú puedes!</b></p>`;
+
+/* BARRA */
+document.getElementById("barraIMC").style.width = ancho + "%";
+document.getElementById("barraIMC").style.background = color;
+
+}
+
+</script>
+
+</body>
+</html>
