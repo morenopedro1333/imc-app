@@ -1,0 +1,19 @@
+{
+  "background_color": "#ffe4ec",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "HealthTrack IMC",
+  "orientation": "any",
+  "scope": "/imc-app/",
+  "short_name": "IMC App",
+  "start_url": "/imc-app/",
+  "theme_color": "#ff69b4",
+  "id": "/imc-app/",
+  "description": "Aplicación para calcular el IMC con recomendaciones de salud, alimentación y ejercicio.",
+  "lang": "es",
+  "categories": [
+    "education",
+    "fitness",
+    "health"
+  ]
+}
