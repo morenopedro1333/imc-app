@@ -311,13 +311,15 @@ recomendaciones=`
 `;
 }
 
-document.getElementById("resultado").innerHTML=
 let res = document.getElementById("resultado");
+
+res.innerHTML =
+`${nombre}, tu IMC es ${imc} (${estado}). Sigue cuidando tu salud 💪`;
+
 res.style.transform = "scale(1.1)";
 setTimeout(() => {
-  res.style.transform = "scale(1)";
-}, 200);           
-`${nombre}, tu IMC es ${imc} (${estado}). Sigue cuidando tu salud 💪`;
+  res.style.transform = "scale(1)"; 
+}, 200); 
 
 let rec = document.getElementById("recomendaciones");
 
