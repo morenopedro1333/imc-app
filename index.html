@@ -170,7 +170,29 @@ button:hover{
 @keyframes aparecerSuave{
   from{opacity:0; transform:translateY(10px);}
   to{opacity:1; transform:translateY(0);}
-}           
+}
+
+/* COLORES DINÁMICOS */
+:root{
+  --color-principal:#64b5f6;
+}
+
+/* BOTÓN dinámico */
+button{
+  background: var(--color-principal);
+  transition:0.3s;
+}
+
+/* BORDE dinámico */
+.container{
+  border:3px solid var(--color-principal);
+  transition:0.3s;
+}
+
+/* EFECTO GLOW */
+.container.glow{
+  box-shadow:0 0 25px var(--color-principal);
+}          
 </style>
 </head>
 
@@ -224,6 +246,7 @@ let sonido = document.getElementById("sonido");
 sonido.currentTime = 0;
 sonido.volume = 0.5;
 sonido.play().catch(() => console.log("Audio bloqueado"));
+}           
 
 let nombre = document.getElementById("nombre").value;
 let peso = parseFloat(document.getElementById("peso").value);
@@ -250,6 +273,7 @@ let ancho = Math.min(imc * 2, 100);
 if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
+if (navigator.vibrate) navigator.vibrate(100);           
 
 recomendaciones=`
 <h3>🍎 Hábitos recomendados</h3>
@@ -266,6 +290,7 @@ recomendaciones=`
 else if(imc < 25){
 estado="Normal";
 color="#81c784";
+if (navigator.vibrate) navigator.vibrate(50);           
 
 recomendaciones=`
 <h3>🥗 Hábitos saludables</h3>
@@ -282,6 +307,7 @@ recomendaciones=`
 else if(imc < 30){
 estado="Sobrepeso";
 color="#ffb74d";
+if (navigator.vibrate) navigator.vibrate([100, 50, 100]);           
 
 recomendaciones=`
 <h3>⚠️ Hábitos recomendados</h3>
@@ -298,6 +324,7 @@ recomendaciones=`
 else{
 estado="Obesidad";
 color="#e57373";
+if (navigator.vibrate) navigator.vibrate([200, 100, 200]);           
 
 recomendaciones=`
 <h3>🚨 Hábitos importantes</h3>
@@ -308,9 +335,21 @@ recomendaciones=`
 <li>Beber agua en lugar de gaseosas</li>
 <li>Consultar con un profesional de salud</li>
 </ul>
-`;
+`;          
 }
+/* CAMBIO DE COLOR GLOBAL */
+document.documentElement.style.setProperty('--color-principal', color);
 
+/* CAMBIO DE FONDO */
+document.body.style.background = color + "20";
+
+/* EFECTO GLOW */
+let cont = document.querySelector(".container");
+cont.classList.add("glow");
+
+setTimeout(() => {
+  cont.classList.remove("glow");
+}, 500);
 let res = document.getElementById("resultado");
 
 res.innerHTML =
@@ -331,7 +370,6 @@ recomendaciones + `<p><b>🌟 Nunca es tarde para mejorar tu salud. ¡Tú puedes
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
-document.querySelector(".container").style.border = "3px solid " + color;
 }
 
 </script>
