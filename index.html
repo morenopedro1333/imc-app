@@ -221,41 +221,64 @@ let ancho = Math.min(imc * 2, 100);
 if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
+
 recomendaciones=`
-<h3>🍎 Alimentación</h3>
-<p>Plátano, palta, leche, frutos secos</p>
-<h3>🏋️ Ejercicios</h3>
-<p>Sentadillas, pesas, flexiones</p>
+<h3>🍎 Hábitos recomendados</h3>
+<ul>
+<li>Consumir alimentos ricos en proteínas (pollo, huevo, pescado)</li>
+<li>Aumentar la cantidad de comidas al día</li>
+<li>Beber suficiente agua</li>
+<li>Dormir al menos 8 horas</li>
+<li>Realizar ejercicios de fuerza (pesas, flexiones)</li>
+</ul>
 `;
 }
+
 else if(imc < 25){
 estado="Normal";
 color="#81c784";
+
 recomendaciones=`
-<h3>🥗 Alimentación</h3>
-<p>Frutas, verduras, proteínas</p>
-<h3>🏃 Ejercicios</h3>
-<p>Correr, bicicleta, deportes</p>
+<h3>🥗 Hábitos saludables</h3>
+<ul>
+<li>Mantener una alimentación equilibrada</li>
+<li>Realizar actividad física al menos 30 minutos diarios</li>
+<li>Evitar el consumo excesivo de azúcar</li>
+<li>Beber suficiente agua diariamente</li>
+<li>Dormir bien y reducir el estrés</li>
+</ul>
 `;
 }
+
 else if(imc < 30){
 estado="Sobrepeso";
 color="#ffb74d";
+
 recomendaciones=`
-<h3>🥦 Alimentación</h3>
-<p>Verduras, frutas, menos azúcar</p>
-<h3>🚶 Ejercicios</h3>
-<p>Caminar, trotar, bicicleta</p>
+<h3>⚠️ Hábitos recomendados</h3>
+<ul>
+<li>Reducir el consumo de comida chatarra</li>
+<li>Incrementar el consumo de frutas y verduras</li>
+<li>Realizar ejercicio cardiovascular (caminar, correr)</li>
+<li>Evitar bebidas azucaradas</li>
+<li>Controlar las porciones de comida</li>
+</ul>
 `;
 }
+
 else{
 estado="Obesidad";
 color="#e57373";
+
 recomendaciones=`
-<h3>🥗 Alimentación</h3>
-<p>Dieta saludable controlada</p>
-<h3>🏃 Ejercicios</h3>
-<p>Ejercicio progresivo diario</p>
+<h3>🚨 Hábitos importantes</h3>
+<ul>
+<li>Seguir una dieta saludable supervisada</li>
+<li>Realizar actividad física progresiva</li>
+<li>Evitar alimentos ultraprocesados</li>
+<li>Beber agua en lugar de gaseosas</li>
+<li>Consultar con un profesional de salud</li>
+</ul>
 `;
 }
 
