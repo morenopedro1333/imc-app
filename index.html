@@ -142,6 +142,35 @@ color:white;
 h2{
 font-size:24px;
 }
+/* LISTAS BONITAS */
+.card ul{
+  padding-left:20px;
+}
+
+.card li{
+  margin-bottom:6px;
+}
+
+/* EFECTO BOTÓN */
+button:hover{
+  transform:scale(1.05);
+  background:#42a5f5;
+}
+
+/* ANIMACIÓN TARJETA */
+.card{
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+}
+
+/* ANIMACIÓN SUAVE */
+@keyframes aparecerSuave{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}           
 </style>
 </head>
 
@@ -283,15 +312,24 @@ recomendaciones=`
 }
 
 document.getElementById("resultado").innerHTML=
+let res = document.getElementById("resultado");
+res.style.transform = "scale(1.1)";
+setTimeout(() => {
+  res.style.transform = "scale(1)";
+}, 200);           
 `${nombre}, tu IMC es ${imc} (${estado}). Sigue cuidando tu salud 💪`;
 
-document.getElementById("recomendaciones").innerHTML=
+let rec = document.getElementById("recomendaciones");
+
+rec.style.animation = "aparecerSuave 0.5s";
+
+rec.innerHTML =
 recomendaciones + `<p><b>🌟 Nunca es tarde para mejorar tu salud. ¡Tú puedes!</b></p>`;
 
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
-
+document.querySelector(".container").style.border = "3px solid " + color;
 }
 
 </script>
