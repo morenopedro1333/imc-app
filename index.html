@@ -178,7 +178,9 @@ font-size:24px;
 
 </div>
 
-<audio id="sonido" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+<audio id="sonido" preload="auto">
+  <source src="https://www.soundjay.com/button/sounds/button-3.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -189,7 +191,10 @@ document.body.style.background = colores[Math.floor(Math.random()*colores.length
 
 function calcular(){
 
-document.getElementById("sonido").play();
+let sonido = document.getElementById("sonido");
+sonido.currentTime = 0;
+sonido.volume = 0.5;
+sonido.play().catch(() => console.log("Audio bloqueado"));
 
 let nombre = document.getElementById("nombre").value;
 let peso = parseFloat(document.getElementById("peso").value);
