@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">           
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Health Track IMC</title>
+
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 
@@ -12,9 +13,12 @@ body{
 font-family: 'Quicksand', sans-serif;
 margin:0;
 background:#ffe4ec;
+min-height:100vh;
+display:flex;
+justify-content:center;
 }
 
-/* FONDO SALUDABLE */
+/* FONDO */
 body::before{
 content:"";
 position:fixed;
@@ -30,12 +34,17 @@ z-index:-1;
 /* CONTENEDOR */
 .container{
 max-width:420px;
-margin:20px auto;
+margin:20px;
 padding:20px;
 background:white;
 border-radius:25px;
 box-shadow:0px 0px 25px rgba(0,0,0,0.2);
 text-align:center;
+transition:0.3s;
+}
+
+.container:hover{
+transform:scale(1.02);
 }
 
 /* BOTÓN CAMBIO */
@@ -57,6 +66,7 @@ padding:12px;
 margin:8px;
 border-radius:10px;
 border:1px solid #ccc;
+font-size:16px;
 }
 
 /* BOTÓN */
@@ -68,6 +78,8 @@ background:#64b5f6;
 color:white;
 border:none;
 border-radius:12px;
+font-size:16px;
+cursor:pointer;
 }
 
 /* RESULTADO */
@@ -93,13 +105,7 @@ margin-top:10px;
 text-align:left;
 }
 
-/* IMÁGENES */
-.img{
-width:70px;
-margin:5px;
-}
-
-/* BARRA IMC */
+/* BARRA */
 .barra{
 height:20px;
 background:#ddd;
@@ -132,6 +138,10 @@ color:white;
 .normal{background:#81c784;}
 .sobre{background:#ffb74d;}
 .obeso{background:#e57373;}
+
+h2{
+font-size:24px;
+}
 </style>
 </head>
 
@@ -168,7 +178,6 @@ color:white;
 
 </div>
 
-<!-- SONIDO -->
 <audio id="sonido" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
 
 <script>
@@ -191,12 +200,17 @@ document.getElementById("resultado").innerHTML="⚠️ Completa bien los datos";
 return;
 }
 
+if(peso <= 0 || altura <= 0){
+document.getElementById("resultado").innerHTML="⚠️ Datos inválidos";
+return;
+}
+
 let imc = (peso / (altura * altura)).toFixed(2);
 
 let estado="";
 let recomendaciones="";
 let color="";
-let ancho = imc * 2;
+let ancho = Math.min(imc * 2, 100);
 
 /* CONDICIONES */
 if(imc < 18.5){
@@ -241,7 +255,7 @@ recomendaciones=`
 }
 
 document.getElementById("resultado").innerHTML=
-`${nombre}, tu IMC es ${imc} (${estado}) 💪✨`;
+`${nombre}, tu IMC es ${imc} (${estado}). Sigue cuidando tu salud 💪`;
 
 document.getElementById("recomendaciones").innerHTML=
 recomendaciones + `<p><b>🌟 Nunca es tarde para mejorar tu salud. ¡Tú puedes!</b></p>`;
