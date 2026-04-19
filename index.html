@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Health Track IMC PRO</title>
+<title>Health Track IMC</title>
 
+<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -12,48 +14,104 @@ body{
 font-family: 'Quicksand', sans-serif;
 margin:0;
 background:#ffe4ec;
+min-height:100vh;
 display:flex;
 justify-content:center;
 }
 
+/* FONDO */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://cdn-icons-png.flaticon.com/512/135/135620.png'),
+           url('https://cdn-icons-png.flaticon.com/512/415/415733.png');
+background-size:80px;
+opacity:0.08;
+z-index:-1;
+}
+
+/* CONTENEDOR */
 .container{
 max-width:420px;
 margin:20px;
 padding:20px;
 background:white;
 border-radius:25px;
-box-shadow:0 0 25px rgba(0,0,0,0.2);
+box-shadow:0px 0px 25px rgba(0,0,0,0.2);
 text-align:center;
+transition:0.3s;
 }
 
-/* LOGO */
-.logo{
-width:80px;
-height:80px;
-border-radius:50%;
-margin:auto;
-background:url("https://cdn-icons-png.flaticon.com/512/1046/1046784.png") center/cover;
+.container:hover{
+transform:scale(1.02);
 }
 
-/* INPUT */
+/* INPUTS */
 input{
 width:90%;
 padding:12px;
 margin:8px;
 border-radius:10px;
 border:1px solid #ccc;
+font-size:16px;
 }
 
-/* BOTONES */
+/* BOTÓN */
 button{
-width:90%;
-padding:14px;
-margin:10px;
-background:#64b5f6;
-color:white;
-border:none;
-border-radius:15px;
-cursor:pointer;
+  width:90%;
+  padding:14px;
+  margin:10px;
+  background: linear-gradient(45deg, var(--color-principal), #42a5f5);
+  color:white;
+  border:none;
+  border-radius:15px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  position:relative;
+  overflow:hidden;
+}
+
+/* HOVER */
+button:hover{
+  transform:translateY(-2px);
+}
+
+/* CLICK */
+button:active{
+  transform:scale(0.95);
+}
+
+/* EFECTO ONDA */
+button::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.2);
+  top:0;
+  left:-100%;
+  transition:0.3s;
+}
+
+button:hover::after{
+  left:100%;
+}
+/* RESULTADO */
+#resultado{
+margin-top:10px;
+font-weight:bold;
+font-size:18px;
+animation: aparecer 0.6s;
+}
+
+/* ANIMACIÓN */
+@keyframes aparecer{
+from{opacity:0; transform:scale(0.9);}
+to{opacity:1; transform:scale(1);}
 }
 
 /* TARJETAS */
@@ -65,12 +123,6 @@ margin-top:10px;
 text-align:left;
 }
 
-/* RESULTADO */
-#resultado{
-font-weight:bold;
-margin-top:10px;
-}
-
 /* BARRA */
 .barra{
 height:20px;
@@ -79,23 +131,169 @@ border-radius:10px;
 margin-top:10px;
 overflow:hidden;
 }
+
 .progreso{
 height:100%;
 width:0%;
+transition:1s;
 }
 
-/* BOTÓN CURIOSIDADES */
-.curiosidadesBtn{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#ff9800;
-padding:12px;
-border-radius:50%;
-cursor:pointer;
-color:white;
-font-size:18px;
+/* TABLA */
+.tabla{
+margin-top:15px;
+border-radius:15px;
+overflow:hidden;
 }
+
+.fila{
+display:flex;
+justify-content:space-between;
+padding:10px;
+color:white;
+}
+
+.bajo{background:#64b5f6;}
+.normal{background:#81c784;}
+.sobre{background:#ffb74d;}
+.obeso{background:#e57373;}
+
+h2{
+font-size:24px;
+}
+/* LISTAS BONITAS */
+.card ul{
+  padding-left:20px;
+}
+
+.card li{
+  margin-bottom:6px;
+}
+
+/* EFECTO BOTÓN */
+button:hover{
+  transform:scale(1.05);
+  background:#42a5f5;
+}
+
+/* ANIMACIÓN TARJETA */
+.card{
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+}
+
+/* ANIMACIÓN SUAVE */
+@keyframes aparecerSuave{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* COLORES DINÁMICOS */
+:root{
+  --color-principal:#64b5f6;
+}
+
+/* BOTÓN dinámico */
+button{
+  background: var(--color-principal);
+  transition:0.3s;
+}
+
+/* BORDE dinámico */
+.container{
+  border:3px solid var(--color-principal);
+  transition:0.3s;
+}
+
+/* EFECTO GLOW */
+.container.glow{
+  box-shadow:0 0 25px var(--color-principal);
+}           
+/* ANIMACIONES POR ESTADO */
+.bajoAnim{
+  animation: suave 0.5s;
+}
+
+.normalAnim{
+  animation: normal 0.5s;
+}
+
+.sobreAnim{
+  animation: alerta 0.5s;
+}
+
+.obesoAnim{
+  animation: fuerte 0.5s;
+}
+
+@keyframes suave{
+  from{transform:scale(0.95);}
+  to{transform:scale(1);}
+}
+
+@keyframes normal{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1);}
+}
+
+@keyframes alerta{
+  0%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  100%{transform:translateX(0);}
+}
+
+@keyframes fuerte{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.1);}
+  50%{transform:scale(0.95);}
+  100%{transform:scale(1);}
+}           
+ /* ENTRADA SUAVE */
+.container{
+  animation: entrada 0.6s ease;
+}
+
+@keyframes entrada{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* INPUT FOCUS */
+input:focus{
+  outline:none;
+  border:2px solid var(--color-principal);
+  box-shadow:0 0 10px var(--color-principal);
+}           
+/* RIPPLE REAL */
+.ripple{
+  position:absolute;
+  border-radius:50%;
+  transform:scale(0);
+  animation:rippleAnim 0.6s linear;
+  background:rgba(255,255,255,0.6);
+}
+
+@keyframes rippleAnim{
+  to{
+    transform:scale(4);
+    opacity:0;
+  }
+}           
+@keyframes fondoMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}           
+           
 </style>
 </head>
 
@@ -103,32 +301,39 @@ font-size:18px;
 
 <div class="container">
 
-<div class="logo"></div>
-
 <h2>💙 Health Track IMC 💙</h2>
 
 <input id="nombre" placeholder="Nombre">
-<input id="peso" type="number" placeholder="Peso (kg)">
-<input id="altura" type="number" placeholder="Altura (ej: 1.70)">
+<input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
+<input id="altura" type="number" step="0.01" placeholder="Altura (ej: 1.70)">
 
 <button onclick="calcular()">Calcular IMC</button>
-<button onclick="verHistorial()">📊 Historial</button>
-<button onclick="borrarHistorial()">🗑️ Borrar</button>
+<button onclick="verHistorial()">📊 Ver historial</button> 
+<button onclick="borrarHistorial()">🗑️ Borrar historial</button>           
 
 <div id="resultado"></div>
 
+<!-- BARRA -->
 <div class="barra">
 <div id="barraIMC" class="progreso"></div>
 </div>
 
 <div id="recomendaciones" class="card"></div>
 <div id="historial" class="card"></div>
+           
+<!-- TABLA -->
+<div class="tabla">
+<div class="fila bajo"><span>< 18.5</span><span>Bajo peso</span></div>
+<div class="fila normal"><span>18.5 - 24.9</span><span>Normal</span></div>
+<div class="fila sobre"><span>25 - 29.9</span><span>Sobrepeso</span></div>
+<div class="fila obeso"><span>> 30</span><span>Obesidad</span></div>
+</div>
 
 </div>
 
-<div class="curiosidadesBtn" onclick="curiosidades()">💡</div>
-
-<audio id="sonido"></audio>
+<audio id="sonido" preload="auto">
+  <source src="https://www.soundjay.com/button/sounds/button-3.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -141,147 +346,232 @@ let peso = parseFloat(document.getElementById("peso").value);
 let altura = parseFloat(document.getElementById("altura").value);
 
 if(!nombre || isNaN(peso) || isNaN(altura)){
-resultado.innerHTML="⚠️ Completa los datos";
+document.getElementById("resultado").innerHTML="⚠️ Completa bien los datos";
 return;
 }
 
-let imc = (peso/(altura*altura)).toFixed(2);
+if(peso <= 0 || altura <= 0){
+document.getElementById("resultado").innerHTML="⚠️ Datos inválidos";
+return;
+}
 
-let estado="", color="", mensaje="", recomendaciones="";
+let imc = (peso / (altura * altura)).toFixed(2);           
 
-/* ESTADOS */
+let estado="";
+let recomendaciones="";
+let color="";
+let ancho = Math.min(parseFloat(imc) * 2, 100);
+let cont = document.querySelector(".container");
 
+/* LIMPIAR ANIMACIONES */
+cont.classList.remove("bajoAnim","normalAnim","sobreAnim","obesoAnim");
+
+/* CONDICIONES */
+       
 if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
-mensaje="💙 Necesitas mejorar tu alimentación";
-
-sonido.src="https://www.soundjay.com/button/sounds/button-09.mp3";
+           
+sonido.pause();           
+sonido.src = "https://www.soundjay.com/button/sounds/button-09.mp3";    
+           
+if (navigator.vibrate) navigator.vibrate([50,30,50]);
+cont.classList.add("bajoAnim");
 
 recomendaciones=`
-🍗 Proteínas: pollo, huevo, avena<br>
-🍽 Comer 4-5 veces al día<br>
-💧 2L de agua diario<br>
-💪 Ejercicios: pesas, sentadillas<br>
-😴 Dormir 8 horas
-`;
-
+<h3>🍎 Hábitos recomendados</h3>
+<ul>
+<li>Proteínas (pollo, huevo, pescado)</li>
+<li>Comer más veces al día</li>
+<li>Tomar agua</li>
+<li>Dormir 8 horas</li>
+<li>Ejercicio de fuerza</li>
+</ul>`;
 }
 
 else if(imc < 25){
 estado="Normal";
-color="#4caf50";
-mensaje="💚 Excelente, sigue así";
-
-sonido.src="https://www.soundjay.com/button/sounds/button-4.mp3";
+color="#81c784";
+           
+sonido.pause();           
+sonido.src = "https://www.soundjay.com/button/sounds/button-4.mp3"; 
+           
+if (navigator.vibrate) navigator.vibrate(50);
+cont.classList.add("normalAnim");
 
 recomendaciones=`
-🥗 Dieta balanceada<br>
-🏃 Ejercicio diario<br>
-🚫 Menos azúcar<br>
-💧 Agua constante<br>
-😴 Buen descanso
-`;
-
+<h3>🥗 Hábitos saludables</h3>
+<ul>
+<li>Alimentación equilibrada</li>
+<li>Ejercicio diario</li>
+<li>Menos azúcar</li>
+<li>Beber agua</li>
+<li>Dormir bien</li>
+</ul>`;
 }
 
 else if(imc < 30){
 estado="Sobrepeso";
-color="#ff9800";
-mensaje="⚠️ Puedes mejorar tu salud";
-
-sonido.src="https://www.soundjay.com/button/sounds/button-10.mp3";
+color="#ffb74d";
+           
+sonido.pause();           
+sonido.src = "https://www.soundjay.com/button/sounds/button-10.mp3";   
+           
+if (navigator.vibrate) navigator.vibrate([100,50,100]);
+cont.classList.add("sobreAnim");
 
 recomendaciones=`
-🥦 Más frutas y verduras<br>
-🚫 Evitar comida chatarra<br>
-🏃 Cardio: correr, saltar<br>
-🥤 No gaseosas<br>
-🍽 Controlar porciones
-`;
-
+<h3>⚠️ Hábitos recomendados</h3>
+<ul>
+<li>Menos comida chatarra</li>
+<li>Más frutas y verduras</li>
+<li>Ejercicio cardio</li>
+<li>No gaseosas</li>
+<li>Controlar porciones</li>
+</ul>`;
 }
 
 else{
 estado="Obesidad";
-color="#f44336";
-mensaje="🚨 Atención, mejora urgente";
-
-sonido.src="https://www.soundjay.com/button/sounds/button-3.mp3";
+color="#e57373";
+           
+sonido.pause();           
+sonido.src = "https://www.soundjay.com/button/sounds/button-3.mp3";
+           
+if (navigator.vibrate) navigator.vibrate([200,100,200]);
+cont.classList.add("obesoAnim");
 
 recomendaciones=`
-🥗 Dieta estricta<br>
-🏃 Ejercicio progresivo<br>
-🚫 Ultraprocesados<br>
-💧 Mucha agua<br>
-👨‍⚕️ Consulta médica
-`;
+<h3>🚨 Hábitos importantes</h3>
+<ul>
+<li>Dieta controlada</li>
+<li>Ejercicio progresivo</li>
+<li>Evitar ultraprocesados</li>
+<li>Tomar agua</li>
+<li>Consultar médico</li>
+</ul>`;
 }
-
-/* SONIDO */
-sonido.currentTime=0;
-sonido.load();
-sonido.play();
-
-/* RESULTADO */
-resultado.innerHTML=
-`Hola ${nombre} 👋<br>
-Tu IMC es <b>${imc}</b><br>
-Estado: <b>${estado}</b><br>
-${mensaje}`;
-
-/* COLOR */
-document.body.style.background=color;
-
-/* RECOMENDACIONES */
-document.getElementById("recomendaciones").innerHTML=
-"<h3>Recomendaciones</h3>"+recomendaciones;
-
-/* BARRA */
-document.getElementById("barraIMC").style.width=(imc*2)+"%";
-document.getElementById("barraIMC").style.background=color;
-
-/* HISTORIAL */
+/* GUARDAR HISTORIAL */
 let historial = JSON.parse(localStorage.getItem("imcHistorial")) || [];
 
-historial.push({nombre, imc, estado});
-localStorage.setItem("imcHistorial", JSON.stringify(historial));
-
-}
-
-/* HISTORIAL */
-function verHistorial(){
-let datos = JSON.parse(localStorage.getItem("imcHistorial")) || [];
-let cont = document.getElementById("historial");
-
-cont.innerHTML="<h3>Historial</h3>";
-
-datos.slice().reverse().forEach(d=>{
-cont.innerHTML += `👤 ${d.nombre} - ${d.imc} (${d.estado})<br>`;
+historial.push({
+  nombre: nombre,
+  imc: imc,
+  estado: estado
 });
+
+localStorage.setItem("imcHistorial", JSON.stringify(historial));           
+
+/* COLOR GLOBAL */
+document.documentElement.style.setProperty('--color-principal', color);
+document.body.style.background =
+`linear-gradient(135deg, ${color}, ${color}99)`;
+
+document.body.style.backgroundSize = "200% 200%";
+document.body.style.animation = "fondoMove 3s ease";           
+
+/* EFECTO GLOW */
+cont.classList.add("glow");
+setTimeout(() => cont.classList.remove("glow"), 500);
+
+/* RESULTADO */
+let res = document.getElementById("resultado");
+
+res.innerHTML =
+`${nombre}, tu IMC es ${imc} (${estado}) 💪`;
+
+res.style.transform = "scale(1.1)";
+setTimeout(() => res.style.transform = "scale(1)", 200);
+
+/* RECOMENDACIONES */
+           
+let rec = document.getElementById("recomendaciones");
+rec.style.animation = "aparecerSuave 0.5s";
+
+rec.innerHTML =
+recomendaciones + `<p><b>🌟 ¡Tú puedes mejorar tu salud!</b></p>`;
+
+/* BARRA */
+document.getElementById("barraIMC").style.width = ancho + "%";
+document.getElementById("barraIMC").style.background = color;
+/* 🔊 SONIDO CORRECTO */
+sonido.currentTime = 0;
+sonido.volume = 0.5;
+sonido.play().catch(() => console.log("Audio bloqueado"));           
+           
+verHistorial();  
+           
+}           
+/* EFECTO RIPPLE */
+           
+document.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", function(e){
+
+    let ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+
+    let rect = this.getBoundingClientRect();
+    let size = Math.max(rect.width, rect.height);
+
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = (e.clientX - rect.left - size/2) + "px";
+    ripple.style.top = (e.clientY - rect.top - size/2) + "px";
+
+    this.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 600);
+  });
+});           
+
+function verHistorial(){
+
+  let datos = JSON.parse(localStorage.getItem("imcHistorial")) || [];
+
+  let contenedor = document.getElementById("historial");
+
+  contenedor.innerHTML = "<h3>📊 Historial</h3>";
+
+  if(datos.length === 0){
+    contenedor.innerHTML += "<p>No hay datos aún</p>";
+    return;
+  }
+
+  datos.reverse().forEach(d => {
+    contenedor.innerHTML += `
+      <div style="margin:8px 0; padding:8px; border-radius:10px; background:#f5f5f5;">
+        👤 ${d.nombre} <br>
+        📊 IMC: ${d.imc} <br>
+        ❤️ Estado: ${d.estado}
+      </div>
+    `;
+  });
 }
 
-/* BORRAR */
 function borrarHistorial(){
-localStorage.removeItem("imcHistorial");
-historial.innerHTML="Borrado";
+  localStorage.removeItem("imcHistorial");
+  document.getElementById("historial").innerHTML = "<p>Historial borrado</p>";
 }
 
-/* CURIOSIDADES */
-function curiosidades(){
+/* MODO OSCURO */
+window.addEventListener("load", () => {
 
-let datos=[
-"🍎 La manzana mejora la digestión",
-"🥑 El aguacate tiene grasas buenas",
-"💧 Beber agua mejora el cerebro",
-"🏃 Caminar 30 min al día mejora la salud",
-"🍌 El plátano da energía rápida"
-];
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
 
-alert(datos[Math.floor(Math.random()*datos.length)]);
-}
+    document.body.style.background = "#121212";
+    document.body.style.color = "white";
+
+    let cont = document.querySelector(".container");
+
+    if(cont){
+      cont.style.background = "#1e1e1e";
+    }
+
+  }
+
+});           
 
 </script>
 
 </body>
 </html>
+
