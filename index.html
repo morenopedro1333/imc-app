@@ -536,8 +536,6 @@ document.querySelectorAll("button").forEach(btn => {
   });
 });           
 
-}
-
 function verHistorial(){
 
   let datos = JSON.parse(localStorage.getItem("imcHistorial")) || [];
@@ -565,6 +563,9 @@ function verHistorial(){
 function borrarHistorial(){
   localStorage.removeItem("imcHistorial");
   document.getElementById("historial").innerHTML = "<p>Historial borrado</p>";
+}
+
+/* MODO OSCURO */
 window.addEventListener("load", () => {
 
   if(window.matchMedia('(prefers-color-scheme: dark)').matches){
@@ -581,7 +582,7 @@ window.addEventListener("load", () => {
   }
 
 });           
-}
+
 </script>
 
 </body>
