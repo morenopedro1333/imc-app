@@ -59,6 +59,7 @@ font-size:16px;
 }
 
 /* BOTÓN */
+<button onclick="verCuriosidades()">💡 Curiosidades</button>           
 button{
   width:90%;
   padding:14px;
@@ -252,6 +253,11 @@ button{
   100%{transform:scale(1);}
 }           
  /* ENTRADA SUAVE */
+<div id="pantallaInicio">
+  <h1>💙 Bienvenido a Health Track</h1>
+  <p>Cuida tu salud de forma inteligente</p>
+  <button onclick="entrarApp()">Entrar</button>
+</div>           
 .container{
   animation: entrada 0.6s ease;
 }
@@ -293,7 +299,29 @@ input:focus{
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }           
-           
+.logo{
+  width:80px;
+  height:80px;
+  background:linear-gradient(135deg,#64b5f6,#42a5f5);
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
+  margin:10px auto;
+  box-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+#pantallaInicio{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#ffe4ec;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}           
 </style>
 </head>
 
@@ -301,7 +329,8 @@ input:focus{
 
 <div class="container">
 
-<h2>💙 Health Track IMC 💙</h2>
+<h2>🍎🥗 Health Track IMC 🍓🍌</h2>
+<div class="logo">💙</div>           
 
 <input id="nombre" placeholder="Nombre">
 <input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
@@ -378,16 +407,17 @@ sonido.src = "https://www.soundjay.com/button/sounds/button-09.mp3";
 if (navigator.vibrate) navigator.vibrate([50,30,50]);
 cont.classList.add("bajoAnim");
 
-recomendaciones=`
-<h3>🍎 Hábitos recomendados</h3>
+recomendaciones = `
+<h3>🍗 Hábitos recomendados</h3>
 <ul>
-<li>Proteínas (pollo, huevo, pescado)</li>
-<li>Comer más veces al día</li>
-<li>Tomar agua</li>
-<li>Dormir 8 horas</li>
-<li>Ejercicio de fuerza</li>
-</ul>`;
-}
+<li>🥚 Proteínas: pollo, huevo, avena</li>
+<li>🍽 Comer 4-5 veces al día</li>
+<li>💧 Tomar agua (2L diarios)</li>
+<li>😴 Dormir 8 horas</li>
+<li>🏋️ Ejercicios: pesas, flexiones</li>
+</ul>
+<p>💪 Puedes subir de peso de forma saludable</p>`;
+}           
 
 else if(imc < 25){
 estado="Normal";
@@ -399,15 +429,16 @@ sonido.src = "https://www.soundjay.com/button/sounds/button-4.mp3";
 if (navigator.vibrate) navigator.vibrate(50);
 cont.classList.add("normalAnim");
 
-recomendaciones=`
+recomendaciones = `
 <h3>🥗 Hábitos saludables</h3>
 <ul>
-<li>Alimentación equilibrada</li>
-<li>Ejercicio diario</li>
-<li>Menos azúcar</li>
-<li>Beber agua</li>
-<li>Dormir bien</li>
-</ul>`;
+<li>🍎 Frutas: manzana, plátano, naranja</li>
+<li>🥦 Verduras: brócoli, espinaca</li>
+<li>🏃 Ejercicio diario: correr, caminar</li>
+<li>💧 Agua al despertar</li>
+<li>😴 Dormir 7-8 horas</li>
+</ul>
+<p>🌟 ¡Vas por buen camino!</p>`;
 }
 
 else if(imc < 30){
@@ -420,15 +451,16 @@ sonido.src = "https://www.soundjay.com/button/sounds/button-10.mp3";
 if (navigator.vibrate) navigator.vibrate([100,50,100]);
 cont.classList.add("sobreAnim");
 
-recomendaciones=`
+recomendaciones = `
 <h3>⚠️ Hábitos recomendados</h3>
 <ul>
-<li>Menos comida chatarra</li>
-<li>Más frutas y verduras</li>
-<li>Ejercicio cardio</li>
-<li>No gaseosas</li>
-<li>Controlar porciones</li>
-</ul>`;
+<li>🚫 Evitar comida chatarra</li>
+<li>🍓 Comer más frutas</li>
+<li>🥗 Verduras diarias</li>
+<li>🏃 Cardio: correr, bicicleta</li>
+<li>🥤 Evitar gaseosas</li>
+</ul>
+<p>🔥 Tú puedes bajar de peso</p>`;
 }
 
 else{
@@ -441,15 +473,16 @@ sonido.src = "https://www.soundjay.com/button/sounds/button-3.mp3";
 if (navigator.vibrate) navigator.vibrate([200,100,200]);
 cont.classList.add("obesoAnim");
 
-recomendaciones=`
+recomendaciones = `
 <h3>🚨 Hábitos importantes</h3>
 <ul>
-<li>Dieta controlada</li>
-<li>Ejercicio progresivo</li>
-<li>Evitar ultraprocesados</li>
-<li>Tomar agua</li>
-<li>Consultar médico</li>
-</ul>`;
+<li>🥗 Dieta controlada</li>
+<li>🏃 Ejercicio progresivo</li>
+<li>🚫 Evitar ultraprocesados</li>
+<li>💧 3-4 litros de agua</li>
+<li>🩺 Visitar médico</li>
+</ul>
+<p>❤️ Tu salud es lo primero</p>`;
 }
 /* GUARDAR HISTORIAL */
 let historial = JSON.parse(localStorage.getItem("imcHistorial")) || [];
@@ -477,8 +510,22 @@ setTimeout(() => cont.classList.remove("glow"), 500);
 /* RESULTADO */
 let res = document.getElementById("resultado");
 
-res.innerHTML =
-`${nombre}, tu IMC es ${imc} (${estado}) 💪`;
+let mensajeFinal = "";
+
+if(estado === "Normal"){
+  mensajeFinal = `😊 Hola ${nombre}, tu IMC es ${imc} (Normal). ¡Muy bien! Sigue así 💪`;
+}
+else if(estado === "Bajo peso"){
+  mensajeFinal = `⚠️ Hola ${nombre}, tu IMC es ${imc} (Bajo peso). Es importante alimentarte mejor 🍗`;
+}
+else if(estado === "Sobrepeso"){
+  mensajeFinal = `🚨 Hola ${nombre}, tu IMC es ${imc} (Sobrepeso). Puedes mejorar con disciplina 🏃`;
+}
+else{
+  mensajeFinal = `❗ Hola ${nombre}, tu IMC es ${imc} (Obesidad). Es momento de cuidar tu salud ❤️`;
+}
+
+res.innerHTML = mensajeFinal;
 
 res.style.transform = "scale(1.1)";
 setTimeout(() => res.style.transform = "scale(1)", 200);
@@ -569,7 +616,23 @@ window.addEventListener("load", () => {
   }
 
 });           
+function entrarApp(){
+  document.getElementById("pantallaInicio").style.display="none";
+}
+function verCuriosidades(){
 
+  let datos = [
+    "🥑 El aguacate es rico en grasas saludables",
+    "🍌 El plátano da energía rápida",
+    "💧 Beber agua mejora el metabolismo",
+    "🏃 Caminar 30 min mejora tu corazón",
+    "🥦 El brócoli es muy nutritivo"
+  ];
+
+  let random = datos[Math.floor(Math.random()*datos.length)];
+
+  alert(random);
+}           
 </script>
 
 </body>
