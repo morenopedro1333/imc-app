@@ -282,6 +282,20 @@ input:focus{
   outline:none;
   border:2px solid var(--color-principal);
   box-shadow:0 0 10px var(--color-principal);
+/* RIPPLE REAL */
+.ripple{
+  position:absolute;
+  border-radius:50%;
+  transform:scale(0);
+  animation:rippleAnim 0.6s linear;
+  background:rgba(255,255,255,0.6);
+}
+
+@keyframes rippleAnim{
+  to{
+    transform:scale(4);
+    opacity:0;
+  }
 }         
 </style>
 </head>
@@ -361,7 +375,7 @@ cont.classList.remove("bajoAnim","normalAnim","sobreAnim","obesoAnim");
 if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
-if (navigator.vibrate) navigator.vibrate(100);
+if (navigator.vibrate) navigator.vibrate([50,30,50]);
 cont.classList.add("bajoAnim");
 
 recomendaciones=`
@@ -453,6 +467,26 @@ recomendaciones + `<p><b>🌟 ¡Tú puedes mejorar tu salud!</b></p>`;
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
+           
+/* EFECTO RIPPLE */
+document.querySelector("button").addEventListener("click", function(e){
+
+  let ripple = document.createElement("span");
+  ripple.classList.add("ripple");
+
+  let rect = this.getBoundingClientRect();
+  let size = Math.max(rect.width, rect.height);
+
+  ripple.style.width = ripple.style.height = size + "px";
+  ripple.style.left = (e.clientX - rect.left - size/2) + "px";
+  ripple.style.top = (e.clientY - rect.top - size/2) + "px";
+
+  this.appendChild(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
+});           
 
 }
 
