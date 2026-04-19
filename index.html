@@ -71,17 +71,46 @@ font-size:16px;
 
 /* BOTÓN */
 button{
-width:90%;
-padding:12px;
-margin:10px;
-background:#64b5f6;
-color:white;
-border:none;
-border-radius:12px;
-font-size:16px;
-cursor:pointer;
+  width:90%;
+  padding:14px;
+  margin:10px;
+  background: linear-gradient(45deg, var(--color-principal), #42a5f5);
+  color:white;
+  border:none;
+  border-radius:15px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  position:relative;
+  overflow:hidden;
 }
 
+/* HOVER */
+button:hover{
+  transform:translateY(-2px);
+}
+
+/* CLICK */
+button:active{
+  transform:scale(0.95);
+}
+
+/* EFECTO ONDA */
+button::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.2);
+  top:0;
+  left:-100%;
+  transition:0.3s;
+}
+
+button:hover::after{
+  left:100%;
+}
 /* RESULTADO */
 #resultado{
 margin-top:10px;
@@ -192,7 +221,68 @@ button{
 /* EFECTO GLOW */
 .container.glow{
   box-shadow:0 0 25px var(--color-principal);
-}          
+}           
+/* ANIMACIONES POR ESTADO */
+.bajoAnim{
+  animation: suave 0.5s;
+}
+
+.normalAnim{
+  animation: normal 0.5s;
+}
+
+.sobreAnim{
+  animation: alerta 0.5s;
+}
+
+.obesoAnim{
+  animation: fuerte 0.5s;
+}
+
+@keyframes suave{
+  from{transform:scale(0.95);}
+  to{transform:scale(1);}
+}
+
+@keyframes normal{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1);}
+}
+
+@keyframes alerta{
+  0%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  100%{transform:translateX(0);}
+}
+
+@keyframes fuerte{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.1);}
+  50%{transform:scale(0.95);}
+  100%{transform:scale(1);}
+ /* ENTRADA SUAVE */
+.container{
+  animation: entrada 0.6s ease;
+}
+
+@keyframes entrada{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* INPUT FOCUS */
+input:focus{
+  outline:none;
+  border:2px solid var(--color-principal);
+  box-shadow:0 0 10px var(--color-principal);
+}         
 </style>
 </head>
 
@@ -235,18 +325,12 @@ button{
 
 <script>
 
-function cambiarFondo(){
-let colores = ["#ffe4ec","#e3f2fd","#e8f5e9","#fff3e0"];
-document.body.style.background = colores[Math.floor(Math.random()*colores.length)];
-}
-
 function calcular(){
 
 let sonido = document.getElementById("sonido");
 sonido.currentTime = 0;
 sonido.volume = 0.5;
 sonido.play().catch(() => console.log("Audio bloqueado"));
-}           
 
 let nombre = document.getElementById("nombre").value;
 let peso = parseFloat(document.getElementById("peso").value);
@@ -268,108 +352,108 @@ let estado="";
 let recomendaciones="";
 let color="";
 let ancho = Math.min(imc * 2, 100);
+let cont = document.querySelector(".container");
+
+/* LIMPIAR ANIMACIONES */
+cont.classList.remove("bajoAnim","normalAnim","sobreAnim","obesoAnim");
 
 /* CONDICIONES */
 if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
-if (navigator.vibrate) navigator.vibrate(100);           
+if (navigator.vibrate) navigator.vibrate(100);
+cont.classList.add("bajoAnim");
 
 recomendaciones=`
 <h3>🍎 Hábitos recomendados</h3>
 <ul>
-<li>Consumir alimentos ricos en proteínas (pollo, huevo, pescado)</li>
-<li>Aumentar la cantidad de comidas al día</li>
-<li>Beber suficiente agua</li>
-<li>Dormir al menos 8 horas</li>
-<li>Realizar ejercicios de fuerza (pesas, flexiones)</li>
-</ul>
-`;
+<li>Proteínas (pollo, huevo, pescado)</li>
+<li>Comer más veces al día</li>
+<li>Tomar agua</li>
+<li>Dormir 8 horas</li>
+<li>Ejercicio de fuerza</li>
+</ul>`;
 }
 
 else if(imc < 25){
 estado="Normal";
 color="#81c784";
-if (navigator.vibrate) navigator.vibrate(50);           
+if (navigator.vibrate) navigator.vibrate(50);
+cont.classList.add("normalAnim");
 
 recomendaciones=`
 <h3>🥗 Hábitos saludables</h3>
 <ul>
-<li>Mantener una alimentación equilibrada</li>
-<li>Realizar actividad física al menos 30 minutos diarios</li>
-<li>Evitar el consumo excesivo de azúcar</li>
-<li>Beber suficiente agua diariamente</li>
-<li>Dormir bien y reducir el estrés</li>
-</ul>
-`;
+<li>Alimentación equilibrada</li>
+<li>Ejercicio diario</li>
+<li>Menos azúcar</li>
+<li>Beber agua</li>
+<li>Dormir bien</li>
+</ul>`;
 }
 
 else if(imc < 30){
 estado="Sobrepeso";
 color="#ffb74d";
-if (navigator.vibrate) navigator.vibrate([100, 50, 100]);           
+if (navigator.vibrate) navigator.vibrate([100,50,100]);
+cont.classList.add("sobreAnim");
 
 recomendaciones=`
 <h3>⚠️ Hábitos recomendados</h3>
 <ul>
-<li>Reducir el consumo de comida chatarra</li>
-<li>Incrementar el consumo de frutas y verduras</li>
-<li>Realizar ejercicio cardiovascular (caminar, correr)</li>
-<li>Evitar bebidas azucaradas</li>
-<li>Controlar las porciones de comida</li>
-</ul>
-`;
+<li>Menos comida chatarra</li>
+<li>Más frutas y verduras</li>
+<li>Ejercicio cardio</li>
+<li>No gaseosas</li>
+<li>Controlar porciones</li>
+</ul>`;
 }
 
 else{
 estado="Obesidad";
 color="#e57373";
-if (navigator.vibrate) navigator.vibrate([200, 100, 200]);           
+if (navigator.vibrate) navigator.vibrate([200,100,200]);
+cont.classList.add("obesoAnim");
 
 recomendaciones=`
 <h3>🚨 Hábitos importantes</h3>
 <ul>
-<li>Seguir una dieta saludable supervisada</li>
-<li>Realizar actividad física progresiva</li>
-<li>Evitar alimentos ultraprocesados</li>
-<li>Beber agua en lugar de gaseosas</li>
-<li>Consultar con un profesional de salud</li>
-</ul>
-`;          
+<li>Dieta controlada</li>
+<li>Ejercicio progresivo</li>
+<li>Evitar ultraprocesados</li>
+<li>Tomar agua</li>
+<li>Consultar médico</li>
+</ul>`;
 }
-/* CAMBIO DE COLOR GLOBAL */
+
+/* COLOR GLOBAL */
 document.documentElement.style.setProperty('--color-principal', color);
 
-/* CAMBIO DE FONDO */
-document.body.style.background = color + "20";
-
 /* EFECTO GLOW */
-let cont = document.querySelector(".container");
 cont.classList.add("glow");
+setTimeout(() => cont.classList.remove("glow"), 500);
 
-setTimeout(() => {
-  cont.classList.remove("glow");
-}, 500);
+/* RESULTADO */
 let res = document.getElementById("resultado");
 
 res.innerHTML =
-`${nombre}, tu IMC es ${imc} (${estado}). Sigue cuidando tu salud 💪`;
+`${nombre}, tu IMC es ${imc} (${estado}) 💪`;
 
 res.style.transform = "scale(1.1)";
-setTimeout(() => {
-  res.style.transform = "scale(1)"; 
-}, 200); 
+setTimeout(() => res.style.transform = "scale(1)", 200);
 
+/* RECOMENDACIONES */
 let rec = document.getElementById("recomendaciones");
 
 rec.style.animation = "aparecerSuave 0.5s";
 
 rec.innerHTML =
-recomendaciones + `<p><b>🌟 Nunca es tarde para mejorar tu salud. ¡Tú puedes!</b></p>`;
+recomendaciones + `<p><b>🌟 ¡Tú puedes mejorar tu salud!</b></p>`;
 
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
+
 }
 
 </script>
