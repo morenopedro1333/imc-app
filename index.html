@@ -57,8 +57,7 @@ border:1px solid #ccc;
 font-size:16px;
 }
 
-/* BOTÓN */
-<button onclick="verCuriosidades()">💡 Curiosidades</button>           
+/* BOTÓN */          
 button{
   width:90%;
   padding:14px;
@@ -251,12 +250,7 @@ button{
   50%{transform:scale(0.95);}
   100%{transform:scale(1);}
 }           
- /* ENTRADA SUAVE */
-<div id="pantallaInicio">
-  <h1>💙 Bienvenido a Health Track</h1>
-  <p>Cuida tu salud de forma inteligente</p>
-  <button onclick="entrarApp()">Entrar</button>
-</div>           
+ /* ENTRADA SUAVE */  
 .container{
   animation: entrada 0.6s ease;
 }
@@ -325,8 +319,14 @@ input:focus{
 </head>
 
 <body>
+<div id="pantallaInicio">
+  <h1>💙 Bienvenido a Health Track</h1>
+  <p>Cuida tu salud de forma inteligente</p>
+  <button onclick="entrarApp()">Entrar</button>
+</div>           
 
 <div class="container">
+<button onclick="verCuriosidades()">💡 Curiosidades</button>           
 
 <h2>🍎🥗 Health Track IMC 🍓🍌</h2>
 <div class="logo">💙</div>           
