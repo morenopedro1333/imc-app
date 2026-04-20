@@ -320,22 +320,28 @@ input:focus{
 
 <body>
 <div id="pantallaInicio">
-  <h1>Bienvenido</h1>
 
-  <div style="font-size:60px;">💙</div>
+  <!-- ARRIBA -->
+  <h1 class="top">Bienvenido</h1>
 
-  <h2>Health Track</h2>
+  <!-- CENTRO -->
+  <div class="center">
+    <div class="icono">💙</div>
+    <h2>Health Track</h2>
+    <div class="corazon">❤️</div>
+  </div>
 
-  <p>❤️</p>
+  <!-- ABAJO -->
+  <div class="bottom">
+    <p>Cuida tu salud de forma inteligente</p>
+    <button onclick="entrarApp()">Entrar</button>
+  </div>
 
-  <p>Cuida tu salud de forma inteligente</p>
-
-  <button onclick="entrarApp()">Entrar</button>
 </div>
 <div class="container">
 <button onclick="verCuriosidades()">💡 Curiosidades</button>           
 
-<h2>🍎🥗 Health Track IMC 🍓🍌</h2>
+<h2>🥗 Health Track IMC 🍓</h2>
 <div class="logo">💙</div>           
 
 <input id="nombre" placeholder="Nombre">
