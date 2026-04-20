@@ -311,9 +311,54 @@ input:focus{
   background:#ffe4ec;
   display:flex;
   flex-direction:column;
+  justify-content:space-between; /* 👈 CLAVE */
+  align-items:center;
+  padding:40px 20px;
+  z-index:999;
+}
+
+/* ARRIBA */
+.top{
+  font-size:30px;
+  font-weight:bold;
+}
+
+/* CENTRO */
+.center{
+  text-align:center;
+}
+
+.icono{
+  font-size:70px;
+}
+
+.center h2{
+  margin:10px 0;
+}
+
+.corazon{
+  font-size:35px;
+  color:red;
+}
+
+/* ABAJO */
+.bottom{
+  text-align:center;
+}
+#btnCuriosidades{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  font-size:25px;
+  background:#ffca28;
+  display:flex;
   justify-content:center;
   align-items:center;
-  z-index:999;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  z-index:1000;
 }           
 </style>
 </head>
@@ -339,7 +384,7 @@ input:focus{
 
 </div>
 <div class="container">
-<button onclick="verCuriosidades()">💡 Curiosidades</button>           
+<button id="btnCuriosidades" onclick="verCuriosidades()">💡</button>           
 
 <h2>🥗 Health Track IMC 🍓</h2>
 <div class="logo">💙</div>           
@@ -547,9 +592,11 @@ setTimeout(() => res.style.transform = "scale(1)", 200);
 let rec = document.getElementById("recomendaciones");
 rec.style.animation = "aparecerSuave 0.5s";
 
-rec.innerHTML =
-recomendaciones + `<p><b>🌟 ¡Tú puedes mejorar tu salud!</b></p>`;
-
+if(estado === "Normal"){
+  rec.innerHTML = recomendaciones;
+}else{
+  rec.innerHTML = recomendaciones + `<p><b>🌟 ¡Tú puedes mejorar tu salud!</b></p>`;
+}
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
