@@ -16,6 +16,7 @@ background:#ffe4ec;
 min-height:100vh;
 display:flex;
 justify-content:center;
+overflow-y: auto;           
 }
 
 /* FONDO */
@@ -307,7 +308,7 @@ input:focus{
 #pantallaInicio{
   position:fixed;
   width:100%;
-  height:100%;
+  height:100vh;
   background:#ffe4ec;
   display:flex;
   flex-direction:column;
@@ -676,7 +677,16 @@ window.addEventListener("load", () => {
 
 });           
 function entrarApp(){
-  document.getElementById("pantallaInicio").style.display="none";
+
+  let pantalla = document.getElementById("pantallaInicio");
+
+  pantalla.style.opacity = "0";
+  pantalla.style.transition = "0.5s";
+
+  setTimeout(() => {
+    pantalla.style.display = "none";
+  }, 500);
+
 }
 function verCuriosidades(){
 
@@ -704,6 +714,7 @@ function verCuriosidades(){
 
  alert(random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic");
 }
+           
 </script>
 
 </body>
