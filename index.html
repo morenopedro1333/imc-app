@@ -59,6 +59,7 @@ border-radius:25px;
 box-shadow:0px 0px 25px rgba(0,0,0,0.2);
 text-align:center;
 transition:0.3s;
+position: relative;           
 }
 
 .container:hover{
@@ -76,11 +77,14 @@ font-size:16px;
 }
 
 /* BOTÓN */          
-  button{
+ button{
   width:220px;
   padding:15px;
   border:none;
   border-radius:30px;
+
+  position: relative;  
+  overflow: hidden;    
 
   background: linear-gradient(45deg, #42a5f5, #478ed1);
   color:white;
@@ -339,8 +343,6 @@ input:focus{
   width:100%;
   height:100vh;
 
-  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -414,7 +416,7 @@ input:focus{
   border-radius:50%;
   font-size:25px;
   background:#ffca28;
-  display:flex;
+  display:none;
   justify-content:center;
   align-items:center;
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
@@ -528,7 +530,7 @@ input:focus{
 <h2>🥗 Health Track IMC 🍓</h2>
 <div class="logo">🫀</div>      
 
-<input id="nombre" placeholder="Nombre">
+<input id="nombre" placeholder="Nombre" required>
 <input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
 <input id="altura" type="number" step="0.01" placeholder="Altura (ej: 1.70)">
 
@@ -548,10 +550,10 @@ input:focus{
            
 <!-- TABLA -->
 <div class="tabla">
-<div class="fila bajo"><span>< 18.5</span><span>Bajo peso</span></div>
+<div class="fila bajo"><span>&lt; 18.5</span><span>Bajo peso</span></div>
 <div class="fila normal"><span>18.5 - 24.9</span><span>Normal</span></div>
 <div class="fila sobre"><span>25 - 29.9</span><span>Sobrepeso</span></div>
-<div class="fila obeso"><span>> 30</span><span>Obesidad</span></div>
+<div class="fila obeso"><span>&gt; 30</span><span>Obesidad</span></div>
 </div>
 
 </div>
@@ -559,7 +561,32 @@ input:focus{
 <audio id="sonido" preload="auto">
   <source src="https://www.soundjay.com/button/sounds/button-3.mp3" type="audio/mpeg">
 </audio>
+<div id="modalCuriosidad" style="
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+">
 
+  <div style="
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    max-width:300px;
+    text-align:center;
+  ">
+    <p id="textoCuriosidad"></p>
+    <button onclick="cerrarCuriosidad()">Cerrar</button>
+  </div>
+
+</div>
+           
 <script>
 
 function calcular(){
@@ -597,8 +624,9 @@ if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
            
-sonido.pause();           
-sonido.src = "https://www.soundjay.com/button/sounds/button-09.mp3";    
+sonido.pause();
+sonido.setAttribute("src", "https://www.soundjay.com/button/sounds/button-4.mp3");
+sonido.load();  
            
 if (navigator.vibrate) navigator.vibrate([50,30,50]);
 cont.classList.add("bajoAnim");
@@ -781,7 +809,7 @@ function verHistorial(){
     return;
   }
 
-  datos.reverse().forEach(d => {
+[datos].reverse().forEach(d => {
     contenedor.innerHTML += `
       <div style="margin:8px 0; padding:8px; border-radius:10px; background:#f5f5f5;">
         👤 ${d.nombre} <br>
@@ -834,6 +862,7 @@ function entrarApp(){
       contenedor.style.transition = "all 0.6s ease";
       contenedor.style.opacity = "1";
       contenedor.style.transform = "translateY(0)";
+      document.getElementById("btnCuriosidades").style.display = "flex";         
     }, 100);
 
   }, 600);
@@ -862,9 +891,14 @@ function verCuriosidades(){
 
   let random = datos[Math.floor(Math.random()*datos.length)];
 
- alert(random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic");
+ document.getElementById("textoCuriosidad").innerText = 
+random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic";
+
+document.getElementById("modalCuriosidad").style.display = "flex";
 }           
-      
+function cerrarCuriosidad(){
+  document.getElementById("modalCuriosidad").style.display = "none";
+}      
                       
 </script>
 
