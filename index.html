@@ -30,6 +30,11 @@ background:#ffe4ec;
 min-height:100vh;
 overflow-y: auto;           
 }
+html, body{
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}           
 
 /* FONDO */
 body::before{
@@ -338,6 +343,7 @@ input:focus{
   font-size:28px;
   font-weight:bold;
   margin:0;
+  padding-top:10px;
 }
 
 /* CENTRO */
@@ -731,11 +737,7 @@ function entrarApp(){
       contenedor.style.transform = "translateY(0)";
     }, 100);
 
-  }, 600);
-// AUTO ENTRAR después de 2.5 segundos
-setTimeout(() => {
-  entrarApp();
-}, 2500);           
+  }, 600);        
 }
 function verCuriosidades(){
 
@@ -762,7 +764,13 @@ function verCuriosidades(){
   let random = datos[Math.floor(Math.random()*datos.length)];
 
  alert(random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic");
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    entrarApp();
+  }, 2500);
+});           
 }
+           
            
 </script>
 
