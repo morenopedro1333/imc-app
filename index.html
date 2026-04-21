@@ -429,35 +429,99 @@ input:focus{
   .icono{
     font-size:50px;
   }
-                     
+}           
+ /* ===== NUEVO DISEÑO PRO ===== */
+
+#pantallaInicio{
+  position:fixed;
+  width:100%;
+  height:100vh;
+
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+
+  z-index:999;
+  text-align:center;
+}
+
+.bienvenido{
+  font-size:18px;
+  color:#ccc;
+  letter-spacing:2px;
+}
+
+.tituloApp{
+  font-size:42px;
+  font-weight:700;
+  color:white;
+}
+
+.corazonGrande{
+  font-size:60px;
+  animation: latidoPro 1s infinite;
+}
+
+@keyframes latidoPro{
+  0%{transform:scale(1);}
+  20%{transform:scale(1.3);}
+  40%{transform:scale(1);}
+  60%{transform:scale(1.25);}
+  100%{transform:scale(1);}
+}
+
+.btnEntrar{
+  margin-top:10px;
+  padding:14px 40px;
+  border:none;
+  border-radius:30px;
+
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  color:white;
+
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btnEntrar:hover{
+  transform:translateY(-3px);
+}          
+.corazonGrande{
+  font-size:60px;
+  animation: latidoPro 1s infinite;
+  filter: drop-shadow(0 0 10px red);
+}         
+}          
 </style>
 </head>
 
 <body>
 <div id="pantallaInicio">
 
-  <!-- ARRIBA -->
-  <h1 class="top">Bienvenido</h1>
+  <!-- TEXTO SUPERIOR -->
+  <p class="bienvenido">Bienvenido a</p>
 
-  <!-- CENTRO -->
-  <div class="center">
-    <div class="icono">💙</div>
-    <h2>Health Track</h2>
-    <div class="corazon">❤️</div>
-  </div>
+  <!-- TÍTULO GRANDE -->
+  <h1 class="tituloApp">Health Track</h1>
 
-  <!-- ABAJO -->
-  <div class="bottom">
-    <p>Cuida tu salud de forma inteligente</p>
-    <button onclick="entrarApp()">Entrar</button>
-  </div>
+  <!-- CORAZÓN -->
+  <div class="corazonGrande">❤️</div>
+
+  <!-- BOTÓN -->
+  <button class="btnEntrar" onclick="entrarApp()">Entrar</button>
 
 </div>
 <div class="container">
 <button id="btnCuriosidades" onclick="verCuriosidades()">💡</button>           
 
 <h2>🥗 Health Track IMC 🍓</h2>
-<div class="logo">💙</div>           
+<div class="logo">📊</div>      
 
 <input id="nombre" placeholder="Nombre">
 <input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
@@ -795,13 +859,8 @@ function verCuriosidades(){
 
  alert(random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic");
 }           
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    entrarApp();
-  }, 2500);
-});           
-           
-           
+      
+                      
 </script>
 
 </body>
