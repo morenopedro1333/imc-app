@@ -76,20 +76,32 @@ font-size:16px;
 }
 
 /* BOTÓN */          
-button{
-  width:90%;
-  padding:14px;
-  margin:10px;
-  background: linear-gradient(45deg, var(--color-principal), #42a5f5);
-  color:white;
+  button{
+  width:220px;
+  padding:15px;
   border:none;
-  border-radius:15px;
+  border-radius:30px;
+
+  background: linear-gradient(45deg, #42a5f5, #478ed1);
+  color:white;
+
   font-size:16px;
+  font-weight:bold;
+  letter-spacing:1px;
+
   cursor:pointer;
-  transition:0.2s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-  position:relative;
-  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+
+  transition:0.3s;
+}
+
+.bottom button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.4);
+}
+
+.bottom button:active{
+  transform:scale(0.95);
 }
 
 /* HOVER */
@@ -326,13 +338,14 @@ input:focus{
   position:fixed;
   width:100%;
   height:100vh;
-  background:#ffe4ec;
+
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
 
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  gap:20px;
+  gap:25px;
 
   padding:20px;
   z-index:999;
@@ -340,10 +353,10 @@ input:focus{
 
 /* ARRIBA */
 .top{
-  font-size:28px;
-  font-weight:bold;
-  margin:0;
-  padding-top:10px;
+  font-size:32px;
+  font-weight:700;
+  color:#333;
+  letter-spacing:1px;
 }
 
 /* CENTRO */
@@ -352,11 +365,21 @@ input:focus{
 }
 
 .icono{
-  font-size:70px;
+  font-size:60px;
+  background:white;
+  width:100px;
+  height:100px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
-
 .center h2{
   margin:10px 0;
+  font-size:26px;
+  font-weight:700;
+  color:#222;
 }
 
 .corazon{
@@ -369,6 +392,11 @@ input:focus{
   text-align:center;
   margin-top:10px;
 }
+.bottom p{
+  color:#444;
+  font-size:14px;
+  margin-bottom:10px;
+}           
 #btnCuriosidades{
   position:fixed;
   bottom:20px;
@@ -394,9 +422,18 @@ input:focus{
     font-size:50px;
   }
 
-  .corazon{
-    font-size:25px;
-  }
+.corazon{
+  font-size:35px;
+  color:red;
+  animation: latido 1s infinite;
+}
+@keyframes latido{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.2);}
+  50%{transform:scale(1);}
+  75%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}           
 
 }           
 </style>
@@ -719,17 +756,16 @@ function entrarApp(){
   let pantalla = document.getElementById("pantallaInicio");
   let contenedor = document.querySelector(".container");
 
-  /* animación salida */
+  /* FADE OUT */
   pantalla.style.opacity = "0";
-  pantalla.style.transform = "scale(1.1)";
-  pantalla.style.transition = "all 0.6s ease";
+  pantalla.style.transition = "opacity 0.6s ease";
 
   setTimeout(() => {
     pantalla.style.display = "none";
 
-    /* animación entrada app */
+    /* FADE IN */
     contenedor.style.opacity = "0";
-    contenedor.style.transform = "translateY(40px)";
+    contenedor.style.transform = "translateY(20px)";
 
     setTimeout(() => {
       contenedor.style.transition = "all 0.6s ease";
@@ -737,7 +773,7 @@ function entrarApp(){
       contenedor.style.transform = "translateY(0)";
     }, 100);
 
-  }, 600);        
+  }, 600);
 }
 function verCuriosidades(){
 
