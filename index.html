@@ -385,7 +385,15 @@ input:focus{
 .corazon{
   font-size:35px;
   color:red;
+  animation: latido 1s infinite;
 }
+@keyframes latido{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.2);}
+  50%{transform:scale(1);}
+  75%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}                      
 
 /* ABAJO */
 .bottom{
@@ -421,21 +429,7 @@ input:focus{
   .icono{
     font-size:50px;
   }
-
-.corazon{
-  font-size:35px;
-  color:red;
-  animation: latido 1s infinite;
-}
-@keyframes latido{
-  0%{transform:scale(1);}
-  25%{transform:scale(1.2);}
-  50%{transform:scale(1);}
-  75%{transform:scale(1.2);}
-  100%{transform:scale(1);}
-}           
-
-}           
+                     
 </style>
 </head>
 
@@ -800,12 +794,12 @@ function verCuriosidades(){
   let random = datos[Math.floor(Math.random()*datos.length)];
 
  alert(random + "\n\n📚 Fuente: OMS / Harvard / Mayo Clinic");
+}           
 window.addEventListener("load", () => {
   setTimeout(() => {
     entrarApp();
   }, 2500);
 });           
-}
            
            
 </script>
