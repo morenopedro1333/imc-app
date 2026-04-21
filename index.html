@@ -108,11 +108,6 @@ font-size:16px;
   transform:scale(0.95);
 }
 
-/* HOVER */
-button:hover{
-  transform:translateY(-2px);
-}
-
 /* CLICK */
 button:active{
   transform:scale(0.95);
@@ -530,7 +525,7 @@ input:focus{
 <h2>🥗 Health Track IMC 🍓</h2>
 <div class="logo">🫀</div>      
 
-<input id="nombre" placeholder="Nombre" required>
+<input id="nombre" placeholder="Nombre">
 <input id="peso" type="number" step="0.01" placeholder="Peso (kg)">
 <input id="altura" type="number" step="0.01" placeholder="Altura (ej: 1.70)">
 
@@ -557,10 +552,7 @@ input:focus{
 </div>
 
 </div>
-
-<audio id="sonido" preload="auto">
-  <source src="https://www.soundjay.com/button/sounds/button-3.mp3" type="audio/mpeg">
-</audio>
+           
 <div id="modalCuriosidad" style="
   position:fixed;
   top:0;
@@ -588,10 +580,19 @@ input:focus{
 </div>
            
 <script>
+let sonido = new Audio();           
+function reproducirSonido(url){
 
+  sonido.pause();         
+  sonido.currentTime = 0;  
+
+  sonido.src = url;     
+
+  sonido.volume = 0.5;     
+
+  sonido.play().catch(() => {}); 
+}
 function calcular(){
-
-let sonido = document.getElementById("sonido");
 
 let nombre = document.getElementById("nombre").value;
 let peso = parseFloat(document.getElementById("peso").value);
@@ -624,9 +625,7 @@ if(imc < 18.5){
 estado="Bajo peso";
 color="#64b5f6";
            
-sonido.pause();
-sonido.setAttribute("src", "https://www.soundjay.com/button/sounds/button-4.mp3");
-sonido.load();  
+reproducirSonido("https://www.soundjay.com/button/sounds/button-09.mp3");
            
 if (navigator.vibrate) navigator.vibrate([50,30,50]);
 cont.classList.add("bajoAnim");
@@ -647,8 +646,7 @@ else if(imc < 25){
 estado="Normal";
 color="#81c784";
            
-sonido.pause();           
-sonido.src = "https://www.soundjay.com/button/sounds/button-4.mp3"; 
+reproducirSonido("https://www.soundjay.com/button/sounds/button-4.mp3"); 
            
 if (navigator.vibrate) navigator.vibrate(50);
 cont.classList.add("normalAnim");
@@ -669,8 +667,7 @@ else if(imc < 30){
 estado="Sobrepeso";
 color="#ffb74d";
            
-sonido.pause();           
-sonido.src = "https://www.soundjay.com/button/sounds/button-10.mp3";   
+reproducirSonido("https://www.soundjay.com/button/sounds/button-10.mp3");
            
 if (navigator.vibrate) navigator.vibrate([100,50,100]);
 cont.classList.add("sobreAnim");
@@ -691,8 +688,7 @@ else{
 estado="Obesidad";
 color="#e57373";
            
-sonido.pause();           
-sonido.src = "https://www.soundjay.com/button/sounds/button-3.mp3";
+reproducirSonido("https://www.soundjay.com/button/sounds/button-3.mp3");
            
 if (navigator.vibrate) navigator.vibrate([200,100,200]);
 cont.classList.add("obesoAnim");
@@ -767,11 +763,6 @@ if(estado === "Normal"){
 /* BARRA */
 document.getElementById("barraIMC").style.width = ancho + "%";
 document.getElementById("barraIMC").style.background = color;
-/* 🔊 SONIDO CORRECTO */
-sonido.currentTime = 0;
-sonido.volume = 0.5;
-sonido.play().catch(() => console.log("Audio bloqueado"));           
-           
 verHistorial();  
            
 }           
@@ -809,7 +800,7 @@ function verHistorial(){
     return;
   }
 
-[datos].reverse().forEach(d => {
+ [...datos].reverse().forEach(d => {
     contenedor.innerHTML += `
       <div style="margin:8px 0; padding:8px; border-radius:10px; background:#f5f5f5;">
         👤 ${d.nombre} <br>
