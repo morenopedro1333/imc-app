@@ -315,21 +315,24 @@ input:focus{
 #pantallaInicio{
   position:fixed;
   width:100%;
-  height:100%;
+  height:100vh;
   background:#ffe4ec;
+
   display:flex;
   flex-direction:column;
-  justify-content:space-between; /* 👈 CLAVE */
+  justify-content:center;
   align-items:center;
-  padding:40px 20px;
+  gap:20px;
+
+  padding:20px;
   z-index:999;
-  overflow:hidden;         
 }
 
 /* ARRIBA */
 .top{
-  font-size:30px;
+  font-size:28px;
   font-weight:bold;
+  margin:0;
 }
 
 /* CENTRO */
@@ -353,8 +356,7 @@ input:focus{
 /* ABAJO */
 .bottom{
   text-align:center;
-  margin-bottom:40px;
-}
+  margin-top:10px;
 }
 #btnCuriosidades{
   position:fixed;
@@ -704,14 +706,31 @@ window.addEventListener("load", () => {
 function entrarApp(){
 
   let pantalla = document.getElementById("pantallaInicio");
+  let contenedor = document.querySelector(".container");
 
+  /* animación salida */
   pantalla.style.opacity = "0";
-  pantalla.style.transition = "0.5s";
+  pantalla.style.transform = "scale(1.1)";
+  pantalla.style.transition = "all 0.6s ease";
 
   setTimeout(() => {
     pantalla.style.display = "none";
-  }, 500);
 
+    /* animación entrada app */
+    contenedor.style.opacity = "0";
+    contenedor.style.transform = "translateY(40px)";
+
+    setTimeout(() => {
+      contenedor.style.transition = "all 0.6s ease";
+      contenedor.style.opacity = "1";
+      contenedor.style.transform = "translateY(0)";
+    }, 100);
+
+  }, 600);
+// AUTO ENTRAR después de 2.5 segundos
+setTimeout(() => {
+  entrarApp();
+}, 2500);           
 }
 function verCuriosidades(){
 
